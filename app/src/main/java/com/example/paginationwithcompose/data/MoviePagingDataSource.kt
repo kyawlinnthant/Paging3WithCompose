@@ -48,7 +48,7 @@ class MoviePagingDataSource @Inject constructor(
             LoadResult.Page(
                 data = data.orEmpty(),
                 prevKey = null, //nextPage ( we use forward only )prevPage,
-                nextKey = currentPage+1
+                nextKey = currentPage + 1
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

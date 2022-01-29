@@ -1,4 +1,4 @@
-package com.example.paginationwithcompose.data
+package com.example.paginationwithcompose.common
 
 object Endpoints {
     const val BASE_URL = "https://api.themoviedb.org/3/"

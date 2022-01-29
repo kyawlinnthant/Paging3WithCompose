@@ -1,4 +1,4 @@
-package com.example.paginationwithcompose
+package com.example.paginationwithcompose.presentation
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

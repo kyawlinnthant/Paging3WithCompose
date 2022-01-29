@@ -1,4 +1,4 @@
-package com.example.paginationwithcompose
+package com.example.paginationwithcompose.presentation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.paginationwithcompose.data.Endpoints
+import com.example.paginationwithcompose.common.Endpoints
 import com.example.paginationwithcompose.data.Movie
 import com.google.accompanist.coil.rememberCoilPainter
 
@@ -86,9 +86,11 @@ fun FoldAbleItem(
                     style = MaterialTheme.typography.body2
                     )
                 Spacer(modifier = Modifier.height(8.dp))
+
                 Image(
                     painter = image,
                     contentDescription = null,
+                    //16:9 = 1.7f
                     modifier = Modifier.aspectRatio(1.7f,false),
                     contentScale = ContentScale.FillWidth
                 )
