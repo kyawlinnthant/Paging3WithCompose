@@ -14,7 +14,7 @@ import com.example.paginationwithcompose.data.Movie
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun MovieList(
+fun MovieListScreen(
     movies: Flow<PagingData<Movie>>
 ) {
     MovieListView(
@@ -27,29 +27,33 @@ fun MovieListView(
     movies: Flow<PagingData<Movie>>,
 ) {
 
-    val movies: LazyPagingItems<Movie> = movies.collectAsLazyPagingItems()
+    val movieList: LazyPagingItems<Movie> = movies.collectAsLazyPagingItems()
 
     LazyColumn(
         modifier = Modifier.padding(4.dp)
     ) {
-        items(movies) { item ->
+        items(movieList) { item ->
             FoldAbleItem(
                 item!!,
                 onClick = {
                     //todo : do some click action
                 })
         }
-        movies.apply {
+        movieList.apply {
 
             when {
                 loadState.refresh is LoadState.Loading -> {
-                    item { LoadingView(modifier = Modifier.fillParentMaxSize()) }
+                    item {
+                        LoadingView(modifier = Modifier.fillParentMaxSize())
+                    }
                 }
                 loadState.append is LoadState.Loading -> {
-                    item { LoadingItem() }
+                    item {
+                        LoadingItem()
+                    }
                 }
                 loadState.refresh is LoadState.Error -> {
-                    val e = movies.loadState.refresh as LoadState.Error
+                    val e = movieList.loadState.refresh as LoadState.Error
                     item {
                         ErrorItem(
                             message = e.error.localizedMessage!!,
@@ -59,7 +63,7 @@ fun MovieListView(
                     }
                 }
                 loadState.append is LoadState.Error -> {
-                    val e = movies.loadState.append as LoadState.Error
+                    val e = movieList.loadState.append as LoadState.Error
                     item {
                         ErrorItem(
                             message = e.error.localizedMessage!!,
