@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -27,7 +28,8 @@ fun FoldAbleItem(
     movie: Movie,
     onClick: () -> Unit
 ) {
-    var expandedState by remember {
+    //you can save expandedState by remember is you don't want to save it across scrolling
+    var expandedState by rememberSaveable {
         mutableStateOf(false)
     }
     val rotationState by animateFloatAsState(
