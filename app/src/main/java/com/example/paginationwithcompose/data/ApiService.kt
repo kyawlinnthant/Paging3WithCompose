@@ -1,13 +1,18 @@
 package com.example.paginationwithcompose.data
 
+import com.example.paginationwithcompose.common.Endpoints
+import com.example.paginationwithcompose.data.dto.BreedsItem
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("https://api.themoviedb.org/3/movie/upcoming?api_key=cdbea55de27a909b4aaa2cfc02eabb75")
-    suspend fun fetchMovies(
-        @Query("page") pageNumber: Int,
-    ): Response<ListResponse>
+    @GET(Endpoints.BREEDS)
+    suspend fun fetchBreeds(
+        @Header(Endpoints.AUTHORIZATION) apiKey: String = "x-api-key ${Endpoints.API_KEY}",
+        @Query("page") page: Int,
+        @Query("limit") loadSize: Int,
+    ): Response<List<BreedsItem>>
 }

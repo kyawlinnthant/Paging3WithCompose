@@ -10,12 +10,12 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.example.paginationwithcompose.data.Movie
+import com.example.paginationwithcompose.data.dto.BreedsItem
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun MovieListScreen(
-    movies: Flow<PagingData<Movie>>
+    movies: Flow<PagingData<BreedsItem>>
 ) {
     MovieListView(
         movies = movies,
@@ -24,22 +24,23 @@ fun MovieListScreen(
 
 @Composable
 fun MovieListView(
-    movies: Flow<PagingData<Movie>>,
+    movies: Flow<PagingData<BreedsItem>>,
 ) {
 
-    val movieList: LazyPagingItems<Movie> = movies.collectAsLazyPagingItems()
+    val breeds: LazyPagingItems<BreedsItem> = movies.collectAsLazyPagingItems()
 
     LazyColumn(
         modifier = Modifier.padding(4.dp)
     ) {
-        items(movieList) { item ->
+
+        items(breeds) { item ->
             FoldAbleItem(
-                item!!,
+                item!!.toVo(),
                 onClick = {
                     //todo : do some click action
                 })
         }
-        movieList.apply {
+        breeds.apply {
 
             when {
                 loadState.refresh is LoadState.Loading -> {
@@ -53,7 +54,7 @@ fun MovieListView(
                     }
                 }
                 loadState.refresh is LoadState.Error -> {
-                    val e = movieList.loadState.refresh as LoadState.Error
+                    val e = breeds.loadState.refresh as LoadState.Error
                     item {
                         ErrorItem(
                             message = e.error.localizedMessage!!,
@@ -63,7 +64,7 @@ fun MovieListView(
                     }
                 }
                 loadState.append is LoadState.Error -> {
-                    val e = movieList.loadState.append as LoadState.Error
+                    val e = breeds.loadState.append as LoadState.Error
                     item {
                         ErrorItem(
                             message = e.error.localizedMessage!!,

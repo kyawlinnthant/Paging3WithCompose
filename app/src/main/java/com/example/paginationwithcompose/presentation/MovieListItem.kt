@@ -18,28 +18,27 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.paginationwithcompose.common.Endpoints
-import com.example.paginationwithcompose.data.Movie
+import com.example.paginationwithcompose.data.vo.Breed
 import com.google.accompanist.coil.rememberCoilPainter
 
 
 @Composable
 fun FoldAbleItem(
-    movie: Movie,
+    breed: Breed,
     onClick: () -> Unit
 ) {
     //you can save expandedState by remember is you don't want to save it across scrolling
     var expandedState by rememberSaveable {
-        mutableStateOf(false)
+        mutableStateOf(breed.isExpended)
     }
     val rotationState by animateFloatAsState(
         targetValue = if (expandedState) 180f else 0f
     )
     val image = rememberCoilPainter(
-        request = Endpoints.IMAGE_URL + movie.backdrop_path,
-        fadeIn = true
+        request = breed.url,
+        fadeIn = true,
+        fadeInDurationMs = 500
     )
-
 
     Card(
         modifier = Modifier
@@ -55,7 +54,7 @@ fun FoldAbleItem(
                 onClick = onClick
             ),
         shape = MaterialTheme.shapes.medium,
-        ) {
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,7 +65,7 @@ fun FoldAbleItem(
             ) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = movie.original_title,
+                    text = breed.name,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.h5
@@ -84,18 +83,26 @@ fun FoldAbleItem(
 
             if (expandedState) {
                 Text(
-                    text = movie.overview,
+                    text = breed.temperament ?: "movie.bred_for",
                     style = MaterialTheme.typography.body2
-                    )
+                )
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Image(
                     painter = image,
                     contentDescription = null,
                     //16:9 = 1.7f
-                    modifier = Modifier.aspectRatio(1.7f,false),
+                    modifier = Modifier.aspectRatio(1.7f, false),
                     contentScale = ContentScale.FillWidth
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                breed.description?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.body2
+                    )
+                }
+
             }
         }
     }

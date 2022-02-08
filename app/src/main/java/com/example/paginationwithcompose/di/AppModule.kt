@@ -41,7 +41,6 @@ object AppModule {
             OkHttpClient
                 .Builder()
                 .addInterceptor(OkHttpProfilerInterceptor())
-                .addNetworkInterceptor(OkHttpProfilerInterceptor())
                 .readTimeout(15, TimeUnit.SECONDS)
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .build()
