@@ -1,5 +1,7 @@
 package com.example.paginationwithcompose.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.MutableTransitionState
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.paginationwithcompose.data.vo.Breed
 import com.google.accompanist.coil.rememberCoilPainter
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun FoldAbleItem(
     breed: Breed,
@@ -31,7 +34,7 @@ fun FoldAbleItem(
 ) {
     //you can save expandedState by remember if you don't want to save it across scrolling
     var expandedState by rememberSaveable {
-        mutableStateOf(breed.isExpended)
+        mutableStateOf(false)
     }
 
     val rotationState by animateFloatAsState(
@@ -67,7 +70,9 @@ fun FoldAbleItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                    ,
                     text = breed.name,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -84,33 +89,38 @@ fun FoldAbleItem(
                 }
             }
 
-            if (expandedState) {
-                Text(
-                    text = breed.temperament ?: "movie.bred_for",
-                    style = MaterialTheme.typography.body2
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Image(
-                    painter = image,
-                    contentDescription = null,
-                    //16:9 = 1.7f
-                    modifier = Modifier
-                        .aspectRatio(1.7f, false)
-                        .clip(MaterialTheme.shapes.medium)
-                    ,
-                    contentScale = ContentScale.FillWidth
-                )
-
-                breed.description?.let {
-                    Spacer(modifier = Modifier.height(8.dp))
+            AnimatedVisibility(
+                visible = expandedState
+            ) {
+                Column {
                     Text(
-                        text = it,
+                        text = breed.temperament ?: "movie.bred_for",
                         style = MaterialTheme.typography.body2
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Image(
+                        painter = image,
+                        contentDescription = null,
+                        //16:9 = 1.7f
+                        modifier = Modifier
+                            .aspectRatio(1.7f, false)
+                            .clip(MaterialTheme.shapes.medium)
+                        ,
+                        contentScale = ContentScale.FillWidth
+                    )
+
+                    breed.description?.let {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.body2
+                        )
+                    }
                 }
 
             }
+
         }
     }
 }
