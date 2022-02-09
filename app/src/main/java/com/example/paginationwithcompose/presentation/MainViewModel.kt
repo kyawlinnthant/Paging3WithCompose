@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     val movies: Flow<PagingData<BreedsItem>> = Pager(
-        config = PagingConfig(pageSize = 10)
+        config = PagingConfig(pageSize = 3)
     ) {
         MoviePagingDataSource(appRepository)
     }.flow.cachedIn(viewModelScope)

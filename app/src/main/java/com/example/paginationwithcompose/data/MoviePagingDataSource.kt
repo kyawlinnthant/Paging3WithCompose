@@ -13,7 +13,7 @@ class MoviePagingDataSource @Inject constructor(
 
     companion object {
         const val INIT_PAGE = 1 //start index to load
-        const val PAGE_SIZE = 10 //items per load
+        const val PAGE_SIZE = 3 //items per load
 //        const val INITIAL_LOAD_SIZE = PAGE_SIZE * 2 //initial size of one load
 //        const val MAX_SIZE = (PAGE_SIZE + INITIAL_LOAD_SIZE) * 10 //cache of the page to hold
     }

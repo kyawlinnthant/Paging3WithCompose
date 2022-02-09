@@ -21,13 +21,12 @@ import androidx.compose.ui.unit.dp
 import com.example.paginationwithcompose.data.vo.Breed
 import com.google.accompanist.coil.rememberCoilPainter
 
-
 @Composable
 fun FoldAbleItem(
     breed: Breed,
     onClick: () -> Unit
 ) {
-    //you can save expandedState by remember is you don't want to save it across scrolling
+    //you can save expandedState by remember if you don't want to save it across scrolling
     var expandedState by rememberSaveable {
         mutableStateOf(breed.isExpended)
     }

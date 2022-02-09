@@ -1,10 +1,12 @@
 package com.example.paginationwithcompose.presentation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -14,11 +16,10 @@ import com.example.paginationwithcompose.data.dto.BreedsItem
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun MovieListScreen(
-    movies: Flow<PagingData<BreedsItem>>
-) {
+fun MovieListScreen() {
+    val vm: MainViewModel = hiltViewModel()
     MovieListView(
-        movies = movies,
+        movies = vm.movies,
     )
 }
 
@@ -30,7 +31,9 @@ fun MovieListView(
     val breeds: LazyPagingItems<BreedsItem> = movies.collectAsLazyPagingItems()
 
     LazyColumn(
-        modifier = Modifier.padding(4.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(4.dp)
     ) {
 
         items(breeds) { item ->
