@@ -7,8 +7,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.paginationwithcompose.data.AppRepository
-import com.example.paginationwithcompose.data.MoviePagingDataSource
-import com.example.paginationwithcompose.data.dto.BreedsItem
+import com.example.paginationwithcompose.data.BreedsPagingDataSource
+import com.example.paginationwithcompose.data.dto.BreedItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -18,9 +18,9 @@ class MainViewModel @Inject constructor(
     private val appRepository: AppRepository
 ) : ViewModel() {
 
-    val movies: Flow<PagingData<BreedsItem>> = Pager(
+    val breeds: Flow<PagingData<BreedItem>> = Pager(
         config = PagingConfig(pageSize = 3)
     ) {
-        MoviePagingDataSource(appRepository)
+        BreedsPagingDataSource(appRepository)
     }.flow.cachedIn(viewModelScope)
 }

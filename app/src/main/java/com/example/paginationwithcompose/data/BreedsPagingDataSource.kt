@@ -2,14 +2,14 @@ package com.example.paginationwithcompose.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.paginationwithcompose.data.dto.BreedsItem
+import com.example.paginationwithcompose.data.dto.BreedItem
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class MoviePagingDataSource @Inject constructor(
+class BreedsPagingDataSource @Inject constructor(
     private val appRepository: AppRepository
-) : PagingSource<Int, BreedsItem>() {
+) : PagingSource<Int, BreedItem>() {
 
     companion object {
         const val INIT_PAGE = 1 //start index to load
@@ -19,7 +19,7 @@ class MoviePagingDataSource @Inject constructor(
     }
 
     //The refresh key is used for subsequent calls to PagingSource.Load after the initial load.
-    override fun getRefreshKey(state: PagingState<Int, BreedsItem>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, BreedItem>): Int? {
 
 //        return state.anchorPosition
 
@@ -33,7 +33,7 @@ class MoviePagingDataSource @Inject constructor(
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, BreedsItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, BreedItem> {
 
         val currentPage = params.key ?: INIT_PAGE
 

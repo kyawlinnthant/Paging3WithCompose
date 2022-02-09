@@ -2,19 +2,19 @@ package com.example.paginationwithcompose.data.dto
 
 import com.example.paginationwithcompose.data.vo.Breed
 
-data class BreedsItem(
+data class BreedItem(
+    val id: Int,
+    val name: String,
+    val description: String? = null,
+    val reference_image_id: String,
     val bred_for: String,
     val breed_group: String,
     val country_code: String,
-    val description: String? = null,
     val height: Height,
     val history: String,
-    val id: Int,
     val image: Image,
     val life_span: String,
-    val name: String,
     val origin: String,
-    val reference_image_id: String,
     val temperament: String? = null,
     val weight: Weight
 ) {

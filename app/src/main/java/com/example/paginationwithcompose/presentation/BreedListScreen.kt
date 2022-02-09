@@ -12,23 +12,23 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.example.paginationwithcompose.data.dto.BreedsItem
+import com.example.paginationwithcompose.data.dto.BreedItem
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun MovieListScreen() {
+fun DoggoListScreen() {
     val vm: MainViewModel = hiltViewModel()
-    MovieListView(
-        movies = vm.movies,
+    DoggoListView(
+        breedItems = vm.breeds,
     )
 }
 
 @Composable
-fun MovieListView(
-    movies: Flow<PagingData<BreedsItem>>,
+fun DoggoListView(
+    breedItems: Flow<PagingData<BreedItem>>,
 ) {
 
-    val breeds: LazyPagingItems<BreedsItem> = movies.collectAsLazyPagingItems()
+    val breed: LazyPagingItems<BreedItem> = breedItems.collectAsLazyPagingItems()
 
     LazyColumn(
         modifier = Modifier
@@ -36,14 +36,14 @@ fun MovieListView(
             .padding(4.dp)
     ) {
 
-        items(breeds) { item ->
+        items(breed) { item ->
             FoldAbleItem(
                 item!!.toVo(),
                 onClick = {
                     //todo : do some click action
                 })
         }
-        breeds.apply {
+        breed.apply {
 
             when {
                 loadState.refresh is LoadState.Loading -> {
@@ -57,7 +57,7 @@ fun MovieListView(
                     }
                 }
                 loadState.refresh is LoadState.Error -> {
-                    val e = breeds.loadState.refresh as LoadState.Error
+                    val e = breed.loadState.refresh as LoadState.Error
                     item {
                         ErrorItem(
                             message = e.error.localizedMessage!!,
@@ -67,7 +67,7 @@ fun MovieListView(
                     }
                 }
                 loadState.append is LoadState.Error -> {
-                    val e = breeds.loadState.append as LoadState.Error
+                    val e = breed.loadState.append as LoadState.Error
                     item {
                         ErrorItem(
                             message = e.error.localizedMessage!!,

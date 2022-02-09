@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.onSurface.copy(
                     alpha = 0.3f
                 )) {
-                    MovieListScreen()
+                    DoggoListScreen()
                 }
             }
         }

@@ -2,11 +2,13 @@ package com.example.paginationwithcompose.presentation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -14,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,6 +33,7 @@ fun FoldAbleItem(
     var expandedState by rememberSaveable {
         mutableStateOf(breed.isExpended)
     }
+
     val rotationState by animateFloatAsState(
         targetValue = if (expandedState) 180f else 0f
     )
@@ -91,11 +95,15 @@ fun FoldAbleItem(
                     painter = image,
                     contentDescription = null,
                     //16:9 = 1.7f
-                    modifier = Modifier.aspectRatio(1.7f, false),
+                    modifier = Modifier
+                        .aspectRatio(1.7f, false)
+                        .clip(MaterialTheme.shapes.medium)
+                    ,
                     contentScale = ContentScale.FillWidth
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+
                 breed.description?.let {
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = it,
                         style = MaterialTheme.typography.body2
@@ -105,5 +113,4 @@ fun FoldAbleItem(
             }
         }
     }
-
 }
