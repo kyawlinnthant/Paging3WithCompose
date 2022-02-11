@@ -1,8 +1,8 @@
 package com.example.paginationwithcompose.data
 
-import com.example.paginationwithcompose.data.dto.BreedItem
+import com.example.paginationwithcompose.data.dto.BreedItemDTO
 
 
 data class BreedsResponse(
-    val data: List<BreedItem>
+    val data: List<BreedItemDTO>
 )

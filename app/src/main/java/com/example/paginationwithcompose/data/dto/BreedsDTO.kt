@@ -1,8 +1,8 @@
 package com.example.paginationwithcompose.data.dto
 
-import com.example.paginationwithcompose.data.vo.Breed
+import com.example.paginationwithcompose.data.vo.BreedItemVo
 
-data class BreedItem(
+data class BreedItemDTO(
     val id: Int,
     val name: String,
     val description: String? = null,
@@ -18,8 +18,8 @@ data class BreedItem(
     val temperament: String? = null,
     val weight: Weight
 ) {
-    fun toVo(): Breed {
-        return Breed(
+    fun toVo(): BreedItemVo {
+        return BreedItemVo(
             name = name,
             description = description,
             temperament = temperament,

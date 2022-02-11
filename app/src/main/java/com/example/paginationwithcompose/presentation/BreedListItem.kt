@@ -4,13 +4,11 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -23,13 +21,13 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.paginationwithcompose.data.vo.Breed
+import com.example.paginationwithcompose.data.vo.BreedItemVo
 import com.google.accompanist.coil.rememberCoilPainter
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun FoldAbleItem(
-    breed: Breed,
+    breedItemVo: BreedItemVo,
     onClick: () -> Unit
 ) {
     //you can save expandedState by remember if you don't want to save it across scrolling
@@ -41,7 +39,7 @@ fun FoldAbleItem(
         targetValue = if (expandedState) 180f else 0f
     )
     val image = rememberCoilPainter(
-        request = breed.url,
+        request = breedItemVo.url,
         fadeIn = true,
         fadeInDurationMs = 500
     )
@@ -73,7 +71,7 @@ fun FoldAbleItem(
                     modifier = Modifier
                         .weight(1f)
                     ,
-                    text = breed.name,
+                    text = breedItemVo.name,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.h5
@@ -94,7 +92,7 @@ fun FoldAbleItem(
             ) {
                 Column {
                     Text(
-                        text = breed.temperament ?: "movie.bred_for",
+                        text = breedItemVo.temperament ?: "movie.bred_for",
                         style = MaterialTheme.typography.body2
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -110,7 +108,7 @@ fun FoldAbleItem(
                         contentScale = ContentScale.FillWidth
                     )
 
-                    breed.description?.let {
+                    breedItemVo.description?.let {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = it,

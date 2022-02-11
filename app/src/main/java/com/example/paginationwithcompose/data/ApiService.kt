@@ -1,7 +1,7 @@
 package com.example.paginationwithcompose.data
 
 import com.example.paginationwithcompose.common.Endpoints
-import com.example.paginationwithcompose.data.dto.BreedItem
+import com.example.paginationwithcompose.data.dto.BreedItemDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -14,5 +14,5 @@ interface ApiService {
         @Header(Endpoints.AUTHORIZATION) apiKey: String = "x-api-key ${Endpoints.API_KEY}",
         @Query("page") page: Int,
         @Query("limit") loadSize: Int,
-    ): Response<List<BreedItem>>
+    ): Response<List<BreedItemDTO>>
 }
