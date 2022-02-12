@@ -8,7 +8,7 @@ data class BreedItemDTO(
     val description: String? = null,
     val reference_image_id: String,
     val bred_for: String,
-    val breed_group: String,
+    val breed_group: String?,
     val country_code: String,
     val height: Height,
     val history: String,
@@ -20,10 +20,15 @@ data class BreedItemDTO(
 ) {
     fun toVo(): BreedItemVo {
         return BreedItemVo(
+            id = id,
             name = name,
             description = description,
             temperament = temperament,
-            url = image.url
+            url = image.url,
+            height = height.imperial,
+            weight = weight.imperial,
+            lifeSpan = life_span,
+            group = breed_group
         )
     }
 }

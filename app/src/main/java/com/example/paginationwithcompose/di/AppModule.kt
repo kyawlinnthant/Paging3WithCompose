@@ -1,10 +1,10 @@
 package com.example.paginationwithcompose.di
 
+import com.example.paginationwithcompose.BuildConfig
+import com.example.paginationwithcompose.common.Endpoints
 import com.example.paginationwithcompose.data.ApiService
 import com.example.paginationwithcompose.data.AppRepository
 import com.example.paginationwithcompose.data.AppRepositoryImpl
-import com.example.paginationwithcompose.common.Endpoints
-import com.itkacher.okprofiler.BuildConfig
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import dagger.Module
 import dagger.Provides

@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     val breeds: Flow<PagingData<UiModel>> = Pager(
-        config = PagingConfig(pageSize = 10)
+        config = PagingConfig(pageSize = 25)
     ) {
         BreedsPagingDataSource(appRepository)
     }
@@ -25,26 +25,30 @@ class MainViewModel @Inject constructor(
         .map { pagingData ->
 
             pagingData
-                .filter { breedItemVo ->
+                /*.filter { breedItemVo ->
                     breedItemVo.name.startsWith(
                         prefix = "A",
                         ignoreCase = true
                     )
 
-                }
+                }*/
                 .map { breedItemVoModel ->
                     UiModel.BreedModel(breedItemVoModel)
                 }
                 .insertSeparators<UiModel.BreedModel, UiModel> { before, after ->
-                    when {
-                        before == null -> UiModel.SeparatorModel("HEADER")
-                        after == null -> UiModel.SeparatorModel("FOOTER")
-                        /* shouldSeparate(before, after) -> UiModel.SeparatorModel(
-                             "BETWEEN ITEMS $before AND $after"
-                         )*/
-                        // Return null to avoid adding a separator between two items.
-                        else -> null
+                    val nameOfAfterItem = after?.item?.name?.first().toString()
+                    if (after?.item?.name?.first() != before?.item?.name?.first()){
+                        return@insertSeparators UiModel.SeparatorModel(nameOfAfterItem)
+                    }else null
+                    /*if (after == null) {
+                        return@insertSeparators null
                     }
+
+                    if (before == null) {
+                        return@insertSeparators UiModel.SeparatorModel(nameOfAfterItem)
+                    } else {
+                        null
+                    }*/
 
                 }
         }
