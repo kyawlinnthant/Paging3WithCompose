@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
             pagingData
                 /*.filter { breedItemVo ->
                     breedItemVo.name.startsWith(
-                        prefix = "A",
+                        prefix = "A", //do some logic
                         ignoreCase = true
                     )
 
@@ -40,16 +40,6 @@ class MainViewModel @Inject constructor(
                     if (after?.item?.name?.first() != before?.item?.name?.first()){
                         return@insertSeparators UiModel.SeparatorModel(nameOfAfterItem)
                     }else null
-                    /*if (after == null) {
-                        return@insertSeparators null
-                    }
-
-                    if (before == null) {
-                        return@insertSeparators UiModel.SeparatorModel(nameOfAfterItem)
-                    } else {
-                        null
-                    }*/
-
                 }
         }
         .cachedIn(viewModelScope)

@@ -63,6 +63,9 @@ fun DoggoListView(
                     }
 
                 }
+                else -> {
+
+                }
             }
 
         }
