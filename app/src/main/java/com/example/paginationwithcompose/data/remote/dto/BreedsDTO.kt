@@ -1,6 +1,7 @@
-package com.example.paginationwithcompose.data.dto
+package com.example.paginationwithcompose.data.remote.dto
 
-import com.example.paginationwithcompose.data.vo.BreedItemVo
+import com.example.paginationwithcompose.data.local.entity.BreedEntity
+import com.example.paginationwithcompose.data.remote.vo.BreedItemVo
 
 data class BreedItemDTO(
     val id: Int,
@@ -20,6 +21,20 @@ data class BreedItemDTO(
 ) {
     fun toVo(): BreedItemVo {
         return BreedItemVo(
+            id = id,
+            name = name,
+            description = description,
+            temperament = temperament,
+            url = image.url,
+            height = height.imperial,
+            weight = weight.imperial,
+            lifeSpan = life_span,
+            group = breed_group
+        )
+    }
+
+    fun toEntity(): BreedEntity {
+        return BreedEntity(
             id = id,
             name = name,
             description = description,

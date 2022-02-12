@@ -2,10 +2,12 @@ package com.example.paginationwithcompose.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
-import com.example.paginationwithcompose.data.AppRepository
-import com.example.paginationwithcompose.data.BreedsPagingDataSource
-import com.example.paginationwithcompose.data.vo.UiModel
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.insertSeparators
+import androidx.paging.map
+import com.example.paginationwithcompose.data.remote.vo.UiModel
+import com.example.paginationwithcompose.repo.AppRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,34 +15,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val appRepository: AppRepository
+    appRepository: AppRepository
 ) : ViewModel() {
 
-    val breeds: Flow<PagingData<UiModel>> = Pager(
-        config = PagingConfig(pageSize = 25)
-    ) {
-        BreedsPagingDataSource(appRepository)
-    }
-        .flow
+    val breedsFromApi: Flow<PagingData<UiModel>> = appRepository.getBreedsFromApi()
         .map { pagingData ->
-
             pagingData
-                /*.filter { breedItemVo ->
-                    breedItemVo.name.startsWith(
-                        prefix = "A", //do some logic
-                        ignoreCase = true
-                    )
-
-                }*/
-                .map { breedItemVoModel ->
-                    UiModel.BreedModel(breedItemVoModel)
+                .map { breedItemVo ->
+                    UiModel.BreedModel(breedItemVo)
                 }
                 .insertSeparators<UiModel.BreedModel, UiModel> { before, after ->
                     val nameOfAfterItem = after?.item?.name?.first().toString()
-                    if (after?.item?.name?.first() != before?.item?.name?.first()){
+                    if (after?.item?.name?.first() != before?.item?.name?.first()) {
                         return@insertSeparators UiModel.SeparatorModel(nameOfAfterItem)
-                    }else null
+                    } else null
                 }
-        }
-        .cachedIn(viewModelScope)
+        }.cachedIn(viewModelScope)
 }

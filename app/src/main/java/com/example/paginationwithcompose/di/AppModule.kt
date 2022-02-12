@@ -1,14 +1,19 @@
 package com.example.paginationwithcompose.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.paginationwithcompose.BuildConfig
+import com.example.paginationwithcompose.common.Constants
 import com.example.paginationwithcompose.common.Endpoints
-import com.example.paginationwithcompose.data.ApiService
-import com.example.paginationwithcompose.data.AppRepository
-import com.example.paginationwithcompose.data.AppRepositoryImpl
+import com.example.paginationwithcompose.data.local.db.BreedsDatabase
+import com.example.paginationwithcompose.data.remote.ApiService
+import com.example.paginationwithcompose.repo.AppRepository
+import com.example.paginationwithcompose.repo.AppRepositoryImpl
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -56,7 +61,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesAppRepository(apiService: ApiService): AppRepository {
-        return AppRepositoryImpl(apiService)
+    fun providesAppRepository(
+        apiService: ApiService,
+        database: BreedsDatabase
+    ): AppRepository {
+        return AppRepositoryImpl(
+            apiService = apiService,
+            database = database
+        )
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideBreedDatabase(
+        @ApplicationContext context: Context
+    ): BreedsDatabase {
+        return Room.databaseBuilder(
+            context,
+            BreedsDatabase::class.java,
+            Constants.BREED_DATABASE
+        ).fallbackToDestructiveMigration().build()
     }
 }

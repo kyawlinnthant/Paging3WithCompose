@@ -25,7 +25,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.paginationwithcompose.data.vo.BreedItemVo
+import com.example.paginationwithcompose.data.remote.vo.BreedItemVo
 import com.google.accompanist.coil.rememberCoilPainter
 
 @OptIn(ExperimentalAnimationApi::class)

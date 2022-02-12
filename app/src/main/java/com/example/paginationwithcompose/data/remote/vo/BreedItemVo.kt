@@ -1,4 +1,4 @@
-package com.example.paginationwithcompose.data.vo
+package com.example.paginationwithcompose.data.remote.vo
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,13 +7,13 @@ import kotlinx.parcelize.Parcelize
 data class BreedItemVo(
     val id: Int,
     val name: String,
-    val description: String? = null,
-    val temperament: String? = null,
-    val group: String?,
     val url: String,
     val height: String,
     val weight: String,
     val lifeSpan: String,
+    val description: String? = null,
+    val temperament: String? = null,
+    val group: String? = null,
     ) : Parcelable
 
 sealed class UiModel {

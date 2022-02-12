@@ -16,14 +16,14 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.example.paginationwithcompose.data.vo.UiModel
+import com.example.paginationwithcompose.data.remote.vo.UiModel
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun DoggoListScreen() {
     val vm: MainViewModel = hiltViewModel()
     DoggoListView(
-        breedItems = vm.breeds,
+        breedItems = vm.breedsFromApi,
     )
 }
 

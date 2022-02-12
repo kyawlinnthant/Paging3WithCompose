@@ -1,7 +1,7 @@
-package com.example.paginationwithcompose.data
+package com.example.paginationwithcompose.data.remote
 
 import com.example.paginationwithcompose.common.Endpoints
-import com.example.paginationwithcompose.data.dto.BreedItemDTO
+import com.example.paginationwithcompose.data.remote.dto.BreedItemDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
