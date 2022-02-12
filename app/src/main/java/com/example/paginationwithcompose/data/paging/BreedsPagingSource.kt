@@ -30,7 +30,7 @@ class BreedsPagingSource @Inject constructor(
             val response = apiService.fetchBreeds(
                 apiKey = Endpoints.API_KEY,
                 page = currentPage,
-                loadSize = Constants.ITEMS_PER_PAGE
+                loadSize = Constants.ITEM_REQUEST
             )
             val pageResponse = response.body()?.map {
                 it.toVo()
